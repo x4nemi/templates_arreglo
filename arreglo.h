@@ -24,9 +24,18 @@ class Arreglo{
         void eliminarInicio();
         void eliminarFinal();
 
+        T* buscar(const T& v);
+        Arreglo<T*> buscarTodos(const T& v);
+
         size_t size();
         T operator[](size_t p){
             return arreglo[p];
+        }
+
+        friend Arreglo<T>& operator<<(Arreglo<T>& a, const T& v){
+            a.insertarFinal(v);
+
+            return a;
         }
 };
 
@@ -132,6 +141,7 @@ void Arreglo<T>::eliminarInicio(){
 
 template <class T>
 void Arreglo<T>::eliminar(const size_t& p){
+
     if(cont == 0){
         cout << "Arreglo vacio" << endl;
         return;
@@ -142,4 +152,29 @@ void Arreglo<T>::eliminar(const size_t& p){
     }
 
     cont--;
+}
+
+template <class T>
+T* Arreglo<T>::buscar(const T& v){
+    for(size_t i = 0; i < cont; i++){
+        if(v == arreglo[i]){
+            return &arreglo[i];
+        }
+    }
+
+    return nullptr;
+}
+
+
+template <class T>
+Arreglo<T*> Arreglo<T>::buscarTodos(const T& v){
+    Arreglo<T*> ptrs;
+
+    for(size_t i = 0; i < cont; i++){
+        if(v == arreglo[i]){
+            ptrs.insertarFinal(&arreglo[i]);
+        }
+    }
+
+    return ptrs;
 }

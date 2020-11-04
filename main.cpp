@@ -1,33 +1,31 @@
 #include "arreglo.h"
+#include "computadora.h"
 
 using namespace std;
 
 int main(){
-    Arreglo<string> arreglo;
-    arreglo.insertarFinal("magenta");
-    arreglo.insertarFinal("azul");
-    arreglo.insertarInicio("Los colores son");
-    arreglo.insertarFinal("y morado");
-    
-    for(int i = 0; i < arreglo.size(); i++){
-        cout << arreglo[i] << " ";
-    }
-    cout << endl;
-    arreglo.insertar(",", 2);
+    Arreglo<Computadora> compus;
 
-    for(int i = 0; i < arreglo.size(); i++){
-        cout << arreglo[i] << " ";
-    }
-    cout << endl;
+    Computadora c1("ruby", "linux", "pentium", 8.0);
+    Computadora c2("hp", "windows", "pentium", 4.0);
+    Computadora c3("dell", "macOs", "i5", 8.0);
+    compus << c1 << c2 << c3 << c2 << c1;
 
-    arreglo.eliminarInicio();
-    arreglo.eliminarFinal();
-    arreglo.eliminar(1);
+    Computadora c4("hp", "windows", "pentium", 4.0);
 
-    for(int i = 0; i < arreglo.size(); i++){
-        cout << arreglo[i] << " ";
+    Arreglo<Computadora*> ptr = compus.buscarTodos(c4);
+
+    if(ptr.size() > 0){
+        for(size_t i = 0; i < ptr.size(); i++){
+            Computadora *c = ptr[i];
+
+            cout << *c << endl;
+        }
     }
 
+    else{
+        cout << "No existe" << endl;
+    }
     
     return 0;
 }
